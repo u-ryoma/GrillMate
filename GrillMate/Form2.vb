@@ -8,9 +8,13 @@ Public Class adminForm
     Dim dr As SqlDataReader
 
 
+
     Private Sub BackButton_Click(sender As Object, e As EventArgs) Handles BackButton.Click
-        Me.Close()
-        Login.Show()
+        Dim msgResult As DialogResult = MessageBox.Show("Are you sure you want to logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+        If msgResult = DialogResult.Yes Then
+            Me.Close()
+            Login.Show()
+        End If
     End Sub
 
 
@@ -134,6 +138,8 @@ Public Class adminForm
 
     Private Sub updBtn_Click(sender As Object, e As EventArgs) Handles updBtn.Click
         edit()
+        saveBtn.Enabled = True
+        txtPrdNum.ReadOnly = False
     End Sub
 
     Public Sub delete()
@@ -165,12 +171,15 @@ Public Class adminForm
             End Try
             clear()
             DGV_load()
+
         End If
 
 
     End Sub
     Private Sub dltBtn_Click(sender As Object, e As EventArgs) Handles dltBtn.Click
         delete()
+        saveBtn.Enabled = True
+        txtPrdNum.ReadOnly = False
     End Sub
 
     Private Sub clrBtn_Click(sender As Object, e As EventArgs) Handles clrBtn.Click
@@ -181,8 +190,20 @@ Public Class adminForm
         DataGridView1.Rows.Clear()
         Try
             conn.Open()
-            Dim cmd As New SqlCommand("SELECT * FROM Grillm WHERE [Product Number] LIKE '%' + @searchText + '%' OR [Product Name] LIKE '%' + @searchText + '%'", conn)
-            cmd.Parameters.AddWithValue("@searchText", txtSearch.Text)
+
+
+            Dim cmd As New SqlCommand("SELECT * FROM Grillm WHERE LEFT([Product Number], 2) LIKE @searchText OR LEFT([Product Name], 2) LIKE @searchText", conn)
+
+
+            Dim searchText = txtSearch.Text
+            If searchText.Length >= 2 Then
+
+                cmd.Parameters.AddWithValue("@searchText", searchText.Substring(0, 2) + "%")
+            Else
+
+                cmd.Parameters.AddWithValue("@searchText", searchText + "%")
+            End If
+
             dr = cmd.ExecuteReader
             While dr.Read
                 DataGridView1.Rows.Add(dr.Item("Product Number"), dr.Item("Product Name"), dr.Item("Price"), dr.Item("Group"))
@@ -194,4 +215,6 @@ Public Class adminForm
             conn.Close()
         End Try
     End Sub
+
+
 End Class

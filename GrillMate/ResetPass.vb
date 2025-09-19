@@ -5,7 +5,7 @@ Public Class restPass
     Private connectionString As String = "Server=.\SQLEXPRESS01;Database=GrillMate;Trusted_Connection=True;TrustServerCertificate=True"
 
     Private Sub cancelBtn_Click(sender As Object, e As EventArgs) Handles cancelBtn.Click
-        Me.Hide()
+        Me.Close()
         Login.Show()
     End Sub
 
@@ -46,6 +46,7 @@ Public Class restPass
             txtPass.Clear()
             txtNewPass.Clear()
             txtConfPass.Clear()
+            Me.Close()
         Else
             MessageBox.Show("Failed to update password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
@@ -87,7 +88,10 @@ Public Class restPass
             MessageBox.Show("Error updating password: " & ex.Message)
             Return False
         End Try
+
+
     End Function
+
 
     Private Sub txtPass_TextChanged(sender As Object, e As EventArgs) Handles txtPass.TextChanged
         txtPass.PasswordChar = "*"c
@@ -100,4 +104,5 @@ Public Class restPass
     Private Sub txtConfPass_TextChanged(sender As Object, e As EventArgs) Handles txtConfPass.TextChanged
         txtConfPass.PasswordChar = "*"c
     End Sub
+
 End Class

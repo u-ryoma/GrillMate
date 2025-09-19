@@ -3,24 +3,13 @@ Partial Class adminForm
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
-    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
-        Try
-            If disposing AndAlso components IsNot Nothing Then
-                components.Dispose()
-            End If
-        Finally
-            MyBase.Dispose(disposing)
-        End Try
-    End Sub
 
-    'Required by the Windows Form Designer
     Private components As System.ComponentModel.IContainer
 
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
         BackButton = New Button()
@@ -45,7 +34,9 @@ Partial Class adminForm
         Column2 = New DataGridViewTextBoxColumn()
         Column3 = New DataGridViewTextBoxColumn()
         Column4 = New DataGridViewTextBoxColumn()
+        Panel1 = New Panel()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
+        Panel1.SuspendLayout()
         SuspendLayout()
         ' 
         ' BackButton
@@ -65,7 +56,7 @@ Partial Class adminForm
         ' timeDate
         ' 
         timeDate.AutoSize = True
-        timeDate.Font = New Font("Segoe UI Semibold", 14F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        timeDate.Font = New Font("Segoe UI Semibold", 14.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         timeDate.Location = New Point(1463, 938)
         timeDate.Name = "timeDate"
         timeDate.Size = New Size(151, 38)
@@ -75,7 +66,7 @@ Partial Class adminForm
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(25, 96)
+        Label1.Location = New Point(11, 40)
         Label1.Name = "Label1"
         Label1.Size = New Size(107, 25)
         Label1.TabIndex = 13
@@ -84,7 +75,7 @@ Partial Class adminForm
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(25, 186)
+        Label2.Location = New Point(11, 130)
         Label2.Name = "Label2"
         Label2.Size = New Size(126, 25)
         Label2.TabIndex = 14
@@ -93,7 +84,7 @@ Partial Class adminForm
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(25, 267)
+        Label3.Location = New Point(11, 211)
         Label3.Name = "Label3"
         Label3.Size = New Size(49, 25)
         Label3.TabIndex = 15
@@ -102,7 +93,7 @@ Partial Class adminForm
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(25, 357)
+        Label4.Location = New Point(11, 301)
         Label4.Name = "Label4"
         Label4.Size = New Size(129, 25)
         Label4.TabIndex = 16
@@ -110,21 +101,21 @@ Partial Class adminForm
         ' 
         ' txtPrdNum
         ' 
-        txtPrdNum.Location = New Point(53, 124)
+        txtPrdNum.Location = New Point(39, 68)
         txtPrdNum.Name = "txtPrdNum"
         txtPrdNum.Size = New Size(244, 31)
         txtPrdNum.TabIndex = 17
         ' 
         ' txtPrdName
         ' 
-        txtPrdName.Location = New Point(53, 222)
+        txtPrdName.Location = New Point(39, 166)
         txtPrdName.Name = "txtPrdName"
         txtPrdName.Size = New Size(244, 31)
         txtPrdName.TabIndex = 18
         ' 
         ' txtPrice
         ' 
-        txtPrice.Location = New Point(53, 300)
+        txtPrice.Location = New Point(39, 244)
         txtPrice.Name = "txtPrice"
         txtPrice.Size = New Size(244, 31)
         txtPrice.TabIndex = 19
@@ -133,7 +124,7 @@ Partial Class adminForm
         ' 
         cmb_boxGrp.FormattingEnabled = True
         cmb_boxGrp.Items.AddRange(New Object() {"Sizzling meals", "Ice cream ", "Takoyaki", "Burgers", "Hotdog Sandwich ", "Samgyup", "Unli wings", "Milktea"})
-        cmb_boxGrp.Location = New Point(53, 390)
+        cmb_boxGrp.Location = New Point(39, 334)
         cmb_boxGrp.Name = "cmb_boxGrp"
         cmb_boxGrp.Size = New Size(244, 33)
         cmb_boxGrp.TabIndex = 20
@@ -141,7 +132,7 @@ Partial Class adminForm
         ' saveBtn
         ' 
         saveBtn.BackColor = Color.FromArgb(CByte(128), CByte(255), CByte(128))
-        saveBtn.Location = New Point(53, 477)
+        saveBtn.Location = New Point(39, 421)
         saveBtn.Name = "saveBtn"
         saveBtn.Size = New Size(86, 44)
         saveBtn.TabIndex = 21
@@ -151,7 +142,7 @@ Partial Class adminForm
         ' updBtn
         ' 
         updBtn.BackColor = Color.FromArgb(CByte(255), CByte(255), CByte(128))
-        updBtn.Location = New Point(172, 477)
+        updBtn.Location = New Point(158, 421)
         updBtn.Name = "updBtn"
         updBtn.Size = New Size(86, 44)
         updBtn.TabIndex = 22
@@ -161,7 +152,7 @@ Partial Class adminForm
         ' dltBtn
         ' 
         dltBtn.BackColor = Color.Red
-        dltBtn.Location = New Point(53, 547)
+        dltBtn.Location = New Point(39, 491)
         dltBtn.Name = "dltBtn"
         dltBtn.Size = New Size(86, 44)
         dltBtn.TabIndex = 23
@@ -170,7 +161,7 @@ Partial Class adminForm
         ' 
         ' clrBtn
         ' 
-        clrBtn.Location = New Point(172, 547)
+        clrBtn.Location = New Point(158, 491)
         clrBtn.Name = "clrBtn"
         clrBtn.Size = New Size(86, 44)
         clrBtn.TabIndex = 24
@@ -180,7 +171,7 @@ Partial Class adminForm
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(397, 99)
+        Label5.Location = New Point(383, 43)
         Label5.Name = "Label5"
         Label5.Size = New Size(64, 25)
         Label5.TabIndex = 25
@@ -188,7 +179,7 @@ Partial Class adminForm
         ' 
         ' txtSearch
         ' 
-        txtSearch.Location = New Point(397, 124)
+        txtSearch.Location = New Point(383, 68)
         txtSearch.Name = "txtSearch"
         txtSearch.Size = New Size(411, 31)
         txtSearch.TabIndex = 26
@@ -198,7 +189,7 @@ Partial Class adminForm
         DataGridView1.BackgroundColor = Color.White
         DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridView1.Columns.AddRange(New DataGridViewColumn() {Column1, Column2, Column3, Column4})
-        DataGridView1.Location = New Point(390, 186)
+        DataGridView1.Location = New Point(376, 130)
         DataGridView1.Name = "DataGridView1"
         DataGridView1.RowHeadersVisible = False
         DataGridView1.RowHeadersWidth = 62
@@ -237,26 +228,34 @@ Partial Class adminForm
         Column4.Name = "Column4"
         Column4.Width = 98
         ' 
+        ' Panel1
+        ' 
+        Panel1.Controls.Add(DataGridView1)
+        Panel1.Controls.Add(txtSearch)
+        Panel1.Controls.Add(Label5)
+        Panel1.Controls.Add(clrBtn)
+        Panel1.Controls.Add(dltBtn)
+        Panel1.Controls.Add(updBtn)
+        Panel1.Controls.Add(saveBtn)
+        Panel1.Controls.Add(cmb_boxGrp)
+        Panel1.Controls.Add(txtPrice)
+        Panel1.Controls.Add(txtPrdName)
+        Panel1.Controls.Add(txtPrdNum)
+        Panel1.Controls.Add(Label4)
+        Panel1.Controls.Add(Label3)
+        Panel1.Controls.Add(Label2)
+        Panel1.Controls.Add(Label1)
+        Panel1.Location = New Point(14, 56)
+        Panel1.Name = "Panel1"
+        Panel1.Size = New Size(1190, 845)
+        Panel1.TabIndex = 29
+        ' 
         ' adminForm
         ' 
-        AutoScaleDimensions = New SizeF(10F, 25F)
+        AutoScaleDimensions = New SizeF(10.0F, 25.0F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1898, 994)
-        Controls.Add(DataGridView1)
-        Controls.Add(txtSearch)
-        Controls.Add(Label5)
-        Controls.Add(clrBtn)
-        Controls.Add(dltBtn)
-        Controls.Add(updBtn)
-        Controls.Add(saveBtn)
-        Controls.Add(cmb_boxGrp)
-        Controls.Add(txtPrice)
-        Controls.Add(txtPrdName)
-        Controls.Add(txtPrdNum)
-        Controls.Add(Label4)
-        Controls.Add(Label3)
-        Controls.Add(Label2)
-        Controls.Add(Label1)
+        Controls.Add(Panel1)
         Controls.Add(timeDate)
         Controls.Add(BackButton)
         MaximizeBox = False
@@ -265,6 +264,8 @@ Partial Class adminForm
         Text = "GrillMate.Admin"
         WindowState = FormWindowState.Maximized
         CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()
+        Panel1.ResumeLayout(False)
+        Panel1.PerformLayout()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -291,4 +292,5 @@ Partial Class adminForm
     Friend WithEvents Column2 As DataGridViewTextBoxColumn
     Friend WithEvents Column3 As DataGridViewTextBoxColumn
     Friend WithEvents Column4 As DataGridViewTextBoxColumn
+    Friend WithEvents Panel1 As Panel
 End Class

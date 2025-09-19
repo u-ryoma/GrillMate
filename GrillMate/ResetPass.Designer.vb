@@ -36,6 +36,7 @@ Partial Class restPass
         ' 
         ' resetBtn
         ' 
+        resetBtn.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         resetBtn.Location = New Point(134, 262)
         resetBtn.Name = "resetBtn"
         resetBtn.Size = New Size(92, 31)
@@ -45,6 +46,7 @@ Partial Class restPass
         ' 
         ' cancelBtn
         ' 
+        cancelBtn.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold Or FontStyle.Underline, GraphicsUnit.Point, CByte(0))
         cancelBtn.Location = New Point(246, 262)
         cancelBtn.Name = "cancelBtn"
         cancelBtn.Size = New Size(92, 31)

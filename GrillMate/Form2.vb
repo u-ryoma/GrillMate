@@ -1,11 +1,9 @@
 ﻿
-Imports Microsoft.Data.SqlClient
+
 
 Public Class adminForm
 
-    Dim conn As New SqlConnection("Server=.\SQLEXPRESS01;Database=GrillMate;Trusted_Connection=True;TrustServerCertificate=True")
-    Dim i As Integer
-    Dim dr As SqlDataReader
+
 
 
 
@@ -23,198 +21,23 @@ Public Class adminForm
         timeDate.Text = DateTime.Now.ToString("MMMM dd, yyyy hh:mm:ss tt")
     End Sub
 
-
-    Public Sub save()
-        Try
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
-
-            Dim cmd As New SqlCommand("INSERT INTO Grillm ([Product Number], [Product Name], [Price], [Group]) 
-                                   VALUES (@ProductNumber, @ProductName, @Price, @Group)", conn)
-
-            cmd.Parameters.Clear()
-            cmd.Parameters.AddWithValue("@ProductNumber", txtPrdNum.Text)
-            cmd.Parameters.AddWithValue("@ProductName", txtPrdName.Text)
-            cmd.Parameters.AddWithValue("@Price", txtPrice.Text)
-            cmd.Parameters.AddWithValue("@Group", cmb_boxGrp.Text)
-
-            i = cmd.ExecuteNonQuery()
-
-            If i > 0 Then
-                MsgBox("Record Saved!", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Else
-                MsgBox("Record Not Saved", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End If
-
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        Finally
-            If conn.State = ConnectionState.Open Then
-                conn.Close()
-            End If
-        End Try
-        clear()
-    End Sub
-
-    Private Sub saveBtn_Click(sender As Object, e As EventArgs) Handles saveBtn.Click
-        save()
-        DGV_load()
-    End Sub
-    Public Sub DGV_load()
-        DataGridView1.Rows.Clear()
-        Try
-            conn.Open()
-            Dim cmd As New SqlCommand("SELECT * FROM Grillm", conn)
-            dr = cmd.ExecuteReader
-            While dr.Read
-                DataGridView1.Rows.Add(dr.Item("Product Number"), dr.Item("Product Name"), dr.Item("Price"), dr.Item("Group"))
-            End While
-            dr.Close()
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        Finally
-            conn.Close()
-        End Try
-
-
+    Public Sub switchPanel(ByVal panel As Form)
+        Panel1.Controls.Clear()  ' Clear existing controls in the panel
+        panel.TopLevel = False   ' Set the form to be non-top-level
+        panel.FormBorderStyle = FormBorderStyle.None  ' Remove borders
+        panel.Dock = DockStyle.Fill  ' Dock the form to fill the panel
+        Panel1.Controls.Add(panel)  ' Add the form to the panel's controls
+        Panel1.Tag = panel  ' Optionally set the panel's tag to the form
+        panel.Show()  ' Show the form
 
     End Sub
 
-    Private Sub adminForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        DGV_load()
-    End Sub
-
-    Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
-        txtPrdNum.Text = DataGridView1.CurrentRow.Cells(0).Value
-        txtPrdName.Text = DataGridView1.CurrentRow.Cells(1).Value
-        txtPrice.Text = DataGridView1.CurrentRow.Cells(2).Value
-        cmb_boxGrp.Text = DataGridView1.CurrentRow.Cells(3).Value
-        txtPrdNum.ReadOnly = True
-        saveBtn.Enabled = False
-    End Sub
-
-    Public Sub clear()
-        txtPrdNum.Clear()
-        txtPrdName.Clear()
-        txtPrice.Clear()
-        cmb_boxGrp.SelectedIndex = -1
-    End Sub
-
-
-    Public Sub edit()
-        Try
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
-
-            Dim cmd As New SqlCommand("UPDATE Grillm SET [Product Number] = @ProductNumber, [Product Name] = @ProductName, [Price] = @Price, [Group] = @Group WHERE [Product Number] = @ProductNumber", conn)
-
-            cmd.Parameters.Clear()
-            cmd.Parameters.AddWithValue("@ProductNumber", txtPrdNum.Text)
-            cmd.Parameters.AddWithValue("@ProductName", txtPrdName.Text)
-            cmd.Parameters.AddWithValue("@Price", txtPrice.Text)
-            cmd.Parameters.AddWithValue("@Group", cmb_boxGrp.Text)
-
-            i = cmd.ExecuteNonQuery()
-
-            If i > 0 Then
-                MsgBox("Record Updated!", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Else
-                MsgBox("Record Not Updated", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End If
-
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        Finally
-            If conn.State = ConnectionState.Open Then
-                conn.Close()
-            End If
-        End Try
-        clear()
-        DGV_load()
-    End Sub
-
-
-    Private Sub updBtn_Click(sender As Object, e As EventArgs) Handles updBtn.Click
-        edit()
-        saveBtn.Enabled = True
-        txtPrdNum.ReadOnly = False
-    End Sub
-
-    Public Sub delete()
-        If MsgBox("You sure you want to delete this record?", MsgBoxStyle.Question + vbYesNo) = vbYes Then
-            Try
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
-                End If
-
-                Dim cmd As New SqlCommand("DELETE FROM   Grillm WHERE [Product Number] = @ProductNumber", conn)
-                cmd.Parameters.Clear()
-                cmd.Parameters.AddWithValue("@ProductNumber", txtPrdNum.Text)
-
-
-                i = cmd.ExecuteNonQuery()
-
-                If i > 0 Then
-                    MsgBox("Record Deleted!", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Else
-                    MsgBox("Delete failed!", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End If
-
-            Catch ex As Exception
-                MsgBox(ex.Message)
-            Finally
-                If conn.State = ConnectionState.Open Then
-                    conn.Close()
-                End If
-            End Try
-            clear()
-            DGV_load()
-
-        End If
-
+    Private Sub Managebtn_Click(sender As Object, e As EventArgs) Handles Managebtn.Click
+        switchPanel(New Manage_Admin())  ' Instantiating a new form to be displayed in the panel
 
     End Sub
-    Private Sub dltBtn_Click(sender As Object, e As EventArgs) Handles dltBtn.Click
-        delete()
-        saveBtn.Enabled = True
-        txtPrdNum.ReadOnly = False
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles ReportBtn.Click
+        switchPanel(New Report_Admin())
     End Sub
-
-    Private Sub clrBtn_Click(sender As Object, e As EventArgs) Handles clrBtn.Click
-        clear()
-    End Sub
-
-    Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
-        DataGridView1.Rows.Clear()
-        Try
-            conn.Open()
-
-
-            Dim cmd As New SqlCommand("SELECT * FROM Grillm WHERE LEFT([Product Number], 2) LIKE @searchText OR LEFT([Product Name], 2) LIKE @searchText", conn)
-
-
-            Dim searchText = txtSearch.Text
-            If searchText.Length >= 2 Then
-
-                cmd.Parameters.AddWithValue("@searchText", searchText.Substring(0, 2) + "%")
-            Else
-
-                cmd.Parameters.AddWithValue("@searchText", searchText + "%")
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                DataGridView1.Rows.Add(dr.Item("Product Number"), dr.Item("Product Name"), dr.Item("Price"), dr.Item("Group"))
-            End While
-            dr.Close()
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        Finally
-            conn.Close()
-        End Try
-    End Sub
-
-
 End Class

@@ -32,12 +32,14 @@ Partial Class History_staff
         Column8 = New DataGridViewTextBoxColumn()
         Column9 = New DataGridViewTextBoxColumn()
         Column10 = New DataGridViewTextBoxColumn()
+        TotalOfGridView = New Label()
         Panel1.SuspendLayout()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' Panel1
         ' 
+        Panel1.Controls.Add(TotalOfGridView)
         Panel1.Controls.Add(DataGridView1)
         Panel1.Location = New Point(60, 64)
         Panel1.Name = "Panel1"
@@ -53,7 +55,7 @@ Partial Class History_staff
         DataGridView1.BackgroundColor = SystemColors.ButtonFace
         DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridView1.Columns.AddRange(New DataGridViewColumn() {Column1, Column2, Column6, Column4, Column7, Column8, Column9, Column10})
-        DataGridView1.Location = New Point(82, 57)
+        DataGridView1.Location = New Point(21, 28)
         DataGridView1.Name = "DataGridView1"
         DataGridView1.ReadOnly = True
         DataGridView1.RowHeadersVisible = False
@@ -127,15 +129,26 @@ Partial Class History_staff
         Column10.ReadOnly = True
         Column10.Width = 178
         ' 
+        ' TotalOfGridView
+        ' 
+        TotalOfGridView.AutoSize = True
+        TotalOfGridView.Font = New Font("Segoe UI Semibold", 14.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        TotalOfGridView.Location = New Point(21, 639)
+        TotalOfGridView.Name = "TotalOfGridView"
+        TotalOfGridView.Size = New Size(96, 38)
+        TotalOfGridView.TabIndex = 11
+        TotalOfGridView.Text = "P 0.00"
+        ' 
         ' History_staff
         ' 
-        AutoScaleDimensions = New SizeF(10F, 25F)
+        AutoScaleDimensions = New SizeF(10.0F, 25.0F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1898, 964)
         Controls.Add(Panel1)
         Name = "History_staff"
         Text = "History_staff"
         Panel1.ResumeLayout(False)
+        Panel1.PerformLayout()
         CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
@@ -149,4 +162,5 @@ Partial Class History_staff
     Friend WithEvents Column8 As DataGridViewTextBoxColumn
     Friend WithEvents Column9 As DataGridViewTextBoxColumn
     Friend WithEvents Column10 As DataGridViewTextBoxColumn
+    Friend WithEvents TotalOfGridView As Label
 End Class
